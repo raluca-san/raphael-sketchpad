@@ -486,25 +486,8 @@
 
         var _action_history = new ActionHistory();
 
-        self.get_history = function() {
-            return _action_history
-                //return _action_history.current_strokes();
-        }
 
-        self.get_strokes = function() {
-            return _strokes;
-        }
-
-        self.load_history = function(JSONhistory) {
-            _action_history.load_history(JSONhistory);
-            if (_action_history.redoable()) {
-                _action_history.redo();
-                _strokes = _action_history.current_strokes();
-                _redraw_strokes();
-                _fire_change();
-            }
-            return self;
-        }
+        
 
         // Path data
         var _strokes = _options.strokes;
@@ -527,19 +510,6 @@
 
         var _history = [];
 
-        this.get_history = function() {
-            return _history;
-        }
-
-        this.get_strokes = function() {
-            return _strokes;
-        }
-
-        this.load_history = function(JSONhistory) {
-            _history = window.JSON.parse(JSONhistory);
-            _strokes = window.JSON.parse(JSONhistory);
-
-        }
 
         // Index of the last state.
         var _current_state = -1;
@@ -715,17 +685,6 @@
             var x = e.pageX - _offset.left,
                 y = e.pageY - _offset.top;
 
-            // get the true dimensions of the image loaded initally
-            var image_width = 0;
-            var image_height = 0;
-
-            if (sketchpad.paper()._viewBox) {
-                var viewBox = sketchpad.paper()._viewBox;
-                image_width = viewBox[2];
-                image_height = viewBox[3];
-            }
-
-
             //fix position for scaled editor
             var scale = sketchpad.scaling_ratio();
             x /= scale;
@@ -772,15 +731,6 @@
                 var x = e.pageX - _offset.left,
                     y = e.pageY - _offset.top;
 
-                // get the true dimensions of the image loaded initally
-                var image_width = 0;
-                var image_height = 0;
-
-                if (sketchpad.paper()._viewBox) {
-                    var viewBox = sketchpad.paper()._viewBox;
-                    image_width = viewBox[2];
-                    image_height = viewBox[3];
-                }
 
                 // fix position for scaled editor
                 var scale = sketchpad.scaling_ratio();
