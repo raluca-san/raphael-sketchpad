@@ -487,8 +487,6 @@
         var _action_history = new ActionHistory();
 
 
-        
-
         // Path data
         var _strokes = _options.strokes;
         if (jQuery.isArray(_strokes) && _strokes.length > 0) {
@@ -509,7 +507,6 @@
         var self = this;
 
         var _history = [];
-
 
         // Index of the last state.
         var _current_state = -1;
@@ -685,6 +682,17 @@
             var x = e.pageX - _offset.left,
                 y = e.pageY - _offset.top;
 
+            // get the true dimensions of the image loaded initally
+            var image_width = 0;
+            var image_height = 0;
+
+            if (sketchpad.paper()._viewBox) {
+                var viewBox = sketchpad.paper()._viewBox;
+                image_width = viewBox[2];
+                image_height = viewBox[3];
+            }
+
+
             //fix position for scaled editor
             var scale = sketchpad.scaling_ratio();
             x /= scale;
@@ -731,6 +739,15 @@
                 var x = e.pageX - _offset.left,
                     y = e.pageY - _offset.top;
 
+                // get the true dimensions of the image loaded initally
+                var image_width = 0;
+                var image_height = 0;
+
+                if (sketchpad.paper()._viewBox) {
+                    var viewBox = sketchpad.paper()._viewBox;
+                    image_width = viewBox[2];
+                    image_height = viewBox[3];
+                }
 
                 // fix position for scaled editor
                 var scale = sketchpad.scaling_ratio();
